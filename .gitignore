@@ -3,3 +3,4 @@ token.json
 .venv
 geckodriver.log
 __pycache__
+info

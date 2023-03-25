@@ -32,7 +32,8 @@ def getEventData(browser):
         
         eventCopy = defaultEvent.copy()
 
-
+        print(startTime)
+        print(endTime)
         eventCopy["summary"] = band
         eventCopy["start"] = {"dateTime": startTime, "timeZone": "America/Denver",}
         eventCopy["end"]   = {"dateTime": endTime, "timeZone": "America/Denver",}
