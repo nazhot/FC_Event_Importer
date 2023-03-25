@@ -21,10 +21,18 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 def uploadEvents(service, eventsList):
     calendarEvents = []
     for event in eventsList:
-        calendarEvent = service.events().insert(calendarId="primary", body=mrEvent).execute()
+        if eventExists(service, event):
+            continue
+        calendarEvent = service.events().insert(calendarId="primary", body=event).execute()
+
         print("Event created: " + calendarEvent.get("htmlLink"))
         calendarEvents.append(calendarEvent)
     return calendarEvents
+
+def eventExists(service, event):
+    scrubbedSummary = event["summary"].replace("&amp;", "&")
+    events = service.events().list(calendarId='primary', q=scrubbedSummary).execute()
+    return len(events["items"]) > 0
 
 def main():
     """Shows basic usage of the Google Calendar API.
@@ -58,13 +66,7 @@ def main():
         magicRatEvents = magicRat.getEventData(browser)
         print("Completed, " + str(len(magicRatEvents)) + " events found")
 
-
-
-
-
-
-
-        #uploadEvents(service, magicRatEvents)
+        uploadEvents(service, magicRatEvents)
         browser.quit()
 
 
