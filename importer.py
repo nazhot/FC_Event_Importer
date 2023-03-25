@@ -1,5 +1,10 @@
 from __future__ import print_function
 
+
+import magicRat
+from selenium import webdriver
+
+
 import datetime
 import os.path
 
@@ -10,8 +15,16 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+SCOPES = ['https://www.googleapis.com/auth/calendar']
 
+
+def uploadEvents(service, eventsList):
+    calendarEvents = []
+    for event in eventsList:
+        calendarEvent = service.events().insert(calendarId="primary", body=mrEvent).execute()
+        print("Event created: " + calendarEvent.get("htmlLink"))
+        calendarEvents.append(calendarEvent)
+    return calendarEvents
 
 def main():
     """Shows basic usage of the Google Calendar API.
@@ -38,22 +51,22 @@ def main():
     try:
         service = build('calendar', 'v3', credentials=creds)
 
-        # Call the Calendar API
-        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-        print('Getting the upcoming 10 events')
-        events_result = service.events().list(calendarId='primary', timeMin=now,
-                                              maxResults=10, singleEvents=True,
-                                              orderBy='startTime').execute()
-        events = events_result.get('items', [])
+        options = webdriver.FirefoxOptions()
+        options.add_argument("--headless")
+        browser = webdriver.Firefox(options=options)
+        print("Getting Magic Rat events")
+        magicRatEvents = magicRat.getEventData(browser)
+        print("Completed, " + str(len(magicRatEvents)) + " events found")
 
-        if not events:
-            print('No upcoming events found.')
-            return
 
-        # Prints the start and name of the next 10 events
-        for event in events:
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            print(start, event['summary'])
+
+
+
+
+
+        #uploadEvents(service, magicRatEvents)
+        browser.quit()
+
 
     except HttpError as error:
         print('An error occurred: %s' % error)
