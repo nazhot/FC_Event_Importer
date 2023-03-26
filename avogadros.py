@@ -15,17 +15,48 @@ events      = []
 defaultStartTime = "01:00:00-07:00"
 defaultEndTime   = "03:00:00-07:00"
 
-def extractTime(string):
-    startTime   = "01:00:00-07:00"
-    endTime     = "03:00:00-07:00"
-    timeString = string.replace(" ", "")
-    timeString = re.sub("[a-zA-Z]", "", timeString)
+def convertTime(timeString):
+    endingString = ":00-07:00"
 
-def extractDate(string):
+    if "$" in timeString:
+        timeString = timeString.split("$")[0] #one of the entries didn't have a comma between time and cost, this protects against this edge case
+
+    if len(timeString) < 3:
+        timeString += ":00"
+    
+    if not ":" in timeString:
+        print(f'{timeString} does not contain a colon')
+        return defaultStartTime
+
+    hour  = int(timeString.split(":")[0])
+    hour += 12
+    return str(hour) + ":" + timeString.split(":")[1] + endingString
+
+def extractTime(string):
+    endingString = ":00-07:00"
+    startTime    = "01:00"
+    endTime      = "03:00"
+    timeString   = string.replace(" ", "")
+    timeString   = re.sub("[a-zA-Z]", "", timeString)
+    if "-" in timeString:
+        splitTime = timeString.split("-")
+        startTime = convertTime(splitTime[0])
+        endTime   = convertTime(splitTime[1])
+        return startTime, endTime
+
+    startTime = convertTime(timeString)
+    startHour = int(startTime.split(":")[0])
+    endHour   = startHour + 2
+    endTime   = str(endHour) + ":" + startTime.split(":")[1] + endingString
+
+    return startTime, endTime
+
+def extractDateTime(string):
     splitString = string.split(",")
     monthNumber = "0"
     dayNumber   = "0"
-
+    startTime   = "01:00:00-07:00"
+    endTime     = "03:00:00-07:00"
 
     for stringIndex in range(len(splitString)):
         value = splitString[stringIndex].lower()
@@ -40,13 +71,11 @@ def extractDate(string):
                 continue
             if stringIndex >= len(splitString) - 1:
                 continue
-            timeString = splitString[stringIndex + 1].replace(" ", "")
-            timeString = re.sub("[a-zA-Z]", "", timeString)
-            print(timeString)
+            startTime, endTime = extractTime(splitString[stringIndex + 1])
           
 
     date = "-".join((str(datetime.date.today().year), monthNumber, dayNumber))
-    return date, "temp", "temp"
+    return date, startTime, endTime
 
 
 defaultEvent = {
@@ -72,7 +101,14 @@ for i in range(startIndex, len(h4sWithText) - 1): #start at the first show, and 
         eventName = text
         continue
 
-    date, startTime, endTime = extractDate(text)
-    # print(f'{eventName}: {date}-{startTime}')
-    # print(f'{eventName}: {date}-{endTime}')
+    date, startTime, endTime = extractDateTime(text)
+
+    eventCopy = defaultEvent.copy()
+    eventCopy["summary"] = eventName + " " + date
+    eventCopy["start"]   = {"dateTime": startTime, "timeZone": "America/Denver",}
+    eventCopy["end"]     = {"dateTime": endTime, "timeZone": "America/Denver",}
+
+    events.append(eventCopy)
     eventName = ""
+
+print(events)
