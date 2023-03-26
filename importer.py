@@ -2,6 +2,7 @@ from __future__ import print_function
 
 
 import magicRat
+import avogadros
 from selenium import webdriver
 
 
@@ -23,14 +24,15 @@ def uploadEvents(service, eventsList):
     for event in eventsList:
         if eventExists(service, event):
             continue
+        print(event["summary"])
         calendarEvent = service.events().insert(calendarId="primary", body=event).execute()
 
-        print("Event created: " + calendarEvent.get("htmlLink"))
+        print("Event created: " + event["summary"])
         calendarEvents.append(calendarEvent)
     return calendarEvents
 
 def eventExists(service, event):
-    scrubbedSummary = event["summary"].replace("&amp;", "&")
+    scrubbedSummary = event["summary"].replace("&amp;", "&").replace("\'", "")
     events = service.events().list(calendarId='primary', q=scrubbedSummary).execute()
     return len(events["items"]) > 0
 
@@ -65,8 +67,12 @@ def main():
         print("Getting Magic Rat events")
         magicRatEvents = magicRat.getEventData(browser)
         print("Completed, " + str(len(magicRatEvents)) + " events found")
-
         uploadEvents(service, magicRatEvents)
+
+        print("Getting Avo's events")
+        avoEvents = avogadros.getEventData()
+        print("Completed, " + str(len(avoEvents)) + " events found")
+        uploadEvents(service, avoEvents)
         browser.quit()
 
 
