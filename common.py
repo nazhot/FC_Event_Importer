@@ -1,7 +1,8 @@
 import re
 
-defaultStartTime = "01:00"
-defaultEndTime   = "03:00"
+defaultStartTime  = "01:00"
+defaultEndTime    = "03:00"
+defaultEventHours = 2
 
 #The default event, helps show if there is an issue with scraping a particular website
 #Is the same across all venues other than the venue name/location
@@ -23,6 +24,8 @@ def convertToEventDateTime(day, month, year, time):
 
     return f'{year}-{month}-{day}T{time}:00-07:00'
 
+#Add the specified number of hours to the given time
+#Input has to be {H?H}:{MM} format to work, if it isn't it is just returned
 def addHoursToTime(timeString, hoursToAdd):
     pattern = re.compile("\d?\d:\d\d$")
     if not pattern.match(timeString):
