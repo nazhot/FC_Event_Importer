@@ -12,6 +12,7 @@ def getDefaultEvent(venueName, venueLocation):
             "description": f'Default {venueName} Description',
             "location": venueLocation,
         }
+    return defaultEvent
 
 #Converts the date elements/time into the format that expected by Google Calendar:
 #   {YYYY}-{MM}-{DD}T{HH}:{MM}:00-07:00
