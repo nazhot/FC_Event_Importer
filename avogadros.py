@@ -2,45 +2,32 @@ from bs4 import BeautifulSoup
 import requests
 import datetime
 import re
+import common
 
 months      = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 
-defaultStartTime = "01:00:00-07:00"
-defaultEndTime   = "03:00:00-07:00"
-
-def convertTime(timeString):
-    endingString = ":00-07:00"
-
-    if "$" in timeString:
-        timeString = timeString.split("$")[0] #one of the entries didn't have a comma between time and cost, this protects against this edge case
-
-    if len(timeString) < 3:
-        timeString += ":00"
+def extractTime(timeString):
+    timeString = timeString.strip()
+    textToRemove = ["$15", "Dance Lessons"] #these are the random strings that appear in some time fields
+    for text in textToRemove:
+        timeString = timeString.replace(text, "")
     
-    if not ":" in timeString:
-        print(f'{timeString} does not contain a colon, Avogadro\'s Number')
-        return defaultStartTime
-
-    hour  = int(timeString.split(":")[0])
-    hour += 12
-    return str(hour) + ":" + timeString.split(":")[1] + endingString
-
-def extractTime(string):
-    endingString = ":00-07:00"
-    startTime    = "01:00"
-    endTime      = "03:00"
-    timeString   = string.replace(" ", "")
-    timeString   = re.sub("[a-zA-Z]", "", timeString)
-    if "-" in timeString:
-        splitTime = timeString.split("-")
-        startTime = convertTime(splitTime[0])
-        endTime   = convertTime(splitTime[1])
+    if "-" in timeString: #if - is present, there is a start to end time listed, and the start time (usually) does not have pm in it, and end time (usually) does
+        startTime, endTime = timeString.split("-")
+        startTime = common.convertPMTimeWithoutMeridian(startTime)
+        if "pm" in endTime:
+            endTime = common.convertMeridianTime(endTime)
+        else:
+            endTime = common.convertPMTimeWithoutMeridian(endTime)
         return startTime, endTime
 
-    startTime = convertTime(timeString)
-    startHour = int(startTime.split(":")[0])
-    endHour   = startHour + 2
-    endTime   = str(endHour) + ":" + startTime.split(":")[1] + endingString
+    if "m" in timeString: #can grab am or pm, have yet to encounter an am though
+        startTime = common.convertMeridianTime(timeString)
+        endTime   = common.addHoursToTime(startTime, common.defaultEventHours)
+        return startTime, endTime
+
+    startTime = common.convertPMTimeWithoutMeridian(timeString) #if this is running, the time is just a number, assume it's PM
+    endTime   = common.addHoursToTime(startTime, common.defaultEventHours)
 
     return startTime, endTime
 
@@ -81,29 +68,27 @@ def extractDateTime(string):
     
     if dateIndex >= len(splitString) - 1:
         print(f'Date does not have a section after it, {string}, Avogadro\'s Number')
-        startTime = defaultStartTime
-        endTime   = defaultEndTime
+        startTime = common.defaultStartTime
+        endTime   = common.defaultEndTime
     else:
         startTime, endTime = extractTime(splitString[dateIndex + 1])
           
-    date = "-".join((year, monthNumber.rjust(2, "0"), dayNumber.rjust(2, "0")))
-    return date, startTime, endTime
+    startDateTime = common.convertToEventDateTime(dayNumber, monthNumber, year, startTime)
+    endDateTime   = common.convertToEventDateTime(dayNumber, monthNumber, year, endTime)
+
+    return startDateTime, endDateTime
 
 def getEventData():
     url            = "https://www.avogadros.com/"
     h4Texts        = []
     foundShowStart = False 
     events         = []
-    defaultEvent   = {
-            "summary": "Default Avogadro's Title",
-            "description": "Default Avogadro's Description",
-            "location": "605 S Mason St, Fort Collins, CO 80524",
-        }
+    defaultEvent   = common.getDefaultEvent("Avogadro's Number", "605 S Mason St, Fort Collins, CO 80524")
 
     try:
         webPage = requests.get(url)
     except requests.exceptions.RequestException as e:
-        print(f'Comedy Fort wasn\'t able to connect to {url}')
+        print(f'Avogadro\'s wasn\'t able to connect to {url}')
         exit
     soup    = BeautifulSoup(webPage.text, "html.parser")
 
@@ -128,12 +113,12 @@ def getEventData():
             eventName = text
             continue
 
-        date, startTime, endTime = extractDateTime(text)
+        startDateTime, endDateTime = extractDateTime(text)
 
         eventCopy                = defaultEvent.copy()
         eventCopy["summary"]     = eventName
-        eventCopy["start"]       = {"dateTime": date + "T" + startTime, "timeZone": "America/Denver",}
-        eventCopy["end"]         = {"dateTime": date + "T" + endTime,   "timeZone": "America/Denver",}
+        eventCopy["start"]       = {"dateTime": startDateTime, "timeZone": "America/Denver",}
+        eventCopy["end"]         = {"dateTime": endDateTime,   "timeZone": "America/Denver",}
 
         events.append(eventCopy)
         eventName = ""

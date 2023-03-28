@@ -2,6 +2,7 @@ import re
 
 defaultStartTime  = "01:00"
 defaultEndTime    = "03:00"
+endingOffset      =":00-07:00"
 defaultEventHours = 2
 
 #The default event, helps show if there is an issue with scraping a particular website
@@ -41,16 +42,19 @@ def addHoursToTime(timeString, hoursToAdd):
 #Input has to be {H?H}:{MM} {merdian}, or {H?H} {meridian}
 def convertMeridianTime(timeString):
     timeString = timeString.lower()
-    pattern1 = re.compile("\d?\d:\d\d [ap]m$")
-    pattern2 = re.compile("\d?\d [ap]m$")
+    timeString = timeString.replace(" ", "")
+    pattern1 = re.compile("\d?\d:\d\d[ap]m$")
+    pattern2 = re.compile("\d?\d[ap]m$")
+
     if pattern2.match(timeString):
-        timeString = timeString.replace(" ", ":00 ")
-    
+        timeString = timeString[:-2] + ":00" + timeString[-2:]
+
     if not pattern1.match(timeString):
         print(f'{timeString} does not match the format needed for meridian time')
         return defaultStartTime
-    
-    time, meridian = timeString.split(" ")
+
+    meridian = timeString[-2:]
+    time     = timeString[:-2]
     hour, minute  = time.split(":")
     if meridian == "pm" and hour != "12":
         hour = str(int(hour) + 12)
@@ -58,3 +62,17 @@ def convertMeridianTime(timeString):
         hour = "00"
     hour = hour.rjust(2, "0")
     return f'{hour}:{minute}'
+
+def convertPMTimeWithoutMeridian(timeString):
+    pattern1 = re.compile("\d?\d:\d\d$")
+    pattern2 = re.compile("\d?\d$")
+
+    if pattern2.match(timeString):
+        timeString += ":00"
+    
+    if not pattern1.match(timeString):
+        print(f'{timeString} does not match the format needed for non-meridian time')
+        return defaultStartTime
+
+    timeString += " pm"
+    return convertMeridianTime(timeString)
