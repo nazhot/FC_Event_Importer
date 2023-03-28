@@ -35,8 +35,8 @@ def getEventData(browser):
         # print(startTime)
         # print(endTime)
         eventCopy["summary"] = band
-        eventCopy["start"] = {"dateTime": startTime, "timeZone": "America/Denver",}
-        eventCopy["end"]   = {"dateTime": endTime, "timeZone": "America/Denver",}
+        eventCopy["start"] = {"dateTime": startTime}
+        eventCopy["end"]   = {"dateTime": endTime}
         #print(time)
         #print(band)
 

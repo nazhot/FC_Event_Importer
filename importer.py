@@ -20,26 +20,37 @@ from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def uploadEvents(service, eventsList):
+def uploadEvents(service, eventsList, calendarId):
     calendarEvents = []
     for event in eventsList:
-        if eventExists(service, event):
+        if eventExists(service, event, calendarId):
             continue
-        calendarEvent = service.events().insert(calendarId="primary", body=event).execute()
+        calendarEvent = service.events().insert(calendarId=calendarId, body=event).execute()
 
         print("Event created: " + event["summary"])
         calendarEvents.append(calendarEvent)
     return calendarEvents
 
-def eventExists(service, event):
+def eventExists(service, event, calendarId):
     scrubbedSummary = event["summary"].replace("&amp;", "&").replace("\'", "")
-    startDateTime   = datetime.datetime.fromisoformat(event["start"]["dateTime"])
-    events = service.events().list(calendarId='primary', q=scrubbedSummary).execute()
+    try:
+        startDateTime   = datetime.datetime.fromisoformat(event["start"]["dateTime"])
+    except ValueError as e:
+        print(f'Invalid isoformat string for {scrubbedSummary}: {event["start"]["dateTime"]}')
+        return True
+    events = service.events().list(calendarId=calendarId, q=scrubbedSummary).execute()
     for existingEvent in events["items"]:
-        existingStartDateTime = datetime.datetime.fromisoformat(existingEvent["start"]["dateTime"])
+        existingStartDateTime = datetime.datetime.fromisoformat(existingEvent["start"]["dateTime"].replace("Z", "+00:00"))
         if startDateTime == existingStartDateTime:
             return True
     return False
+
+def generateCalendarsDict(service):
+    calendarDict = {}
+    calendarList = service.calendarList().list().execute()
+    for calendar in calendarList["items"]:
+        calendarDict[calendar["summary"]] = calendar["id"]
+    return calendarDict
 
 def main():
     """Shows basic usage of the Google Calendar API.
@@ -66,13 +77,15 @@ def main():
     try:
         service = build('calendar', 'v3', credentials=creds)
 
+        calendarDict = generateCalendarsDict(service)
+
         options = webdriver.FirefoxOptions()
         options.add_argument("--headless")
         browser = webdriver.Firefox(options=options)
         print("Getting Magic Rat events")
         magicRatEvents = magicRat.getEventData(browser)
         print("Completed, " + str(len(magicRatEvents)) + " events found")
-        uploadEvents(service, magicRatEvents)
+        uploadEvents(service, magicRatEvents, calendarDict["Magic Rat"])
 
         # print("Getting Avo's events")
         # avoEvents = avogadros.getEventData()
