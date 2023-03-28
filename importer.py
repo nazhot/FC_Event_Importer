@@ -74,15 +74,15 @@ def main():
         print("Completed, " + str(len(magicRatEvents)) + " events found")
         uploadEvents(service, magicRatEvents)
 
-        print("Getting Avo's events")
-        avoEvents = avogadros.getEventData()
-        print("Completed, " + str(len(avoEvents)) + " events found")
-        uploadEvents(service, avoEvents)
+        # print("Getting Avo's events")
+        # avoEvents = avogadros.getEventData()
+        # print("Completed, " + str(len(avoEvents)) + " events found")
+        # uploadEvents(service, avoEvents)
 
-        print("Getting Comedy Fort events")
-        comedyFortEvents = comedyFort.getEventData()
-        print(f'Completed, {len(comedyFortEvents)} events found')
-        uploadEvents(service, comedyFortEvents)
+        # print("Getting Comedy Fort events")
+        # comedyFortEvents = comedyFort.getEventData()
+        # print(f'Completed, {len(comedyFortEvents)} events found')
+        # uploadEvents(service, comedyFortEvents)
 
         browser.quit()
 

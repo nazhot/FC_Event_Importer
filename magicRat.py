@@ -24,7 +24,7 @@ def getEventData(browser):
         bandContainer = eventContainer.find("h3")
         timeContainer = eventContainer.find("time")
 
-        startTime = timeContainer["datetime"].replace(" ", "T") + "-07:00"
+        startTime = timeContainer["datetime"].replace(" ", "T") + "-06:00"
         startHour = startTime.split("T")[1].split(":")[0]
         endHour   = str((int(startHour)  + 2) % 24) + ":00"
         endTime = startTime.replace(startHour + ":00", endHour)
@@ -43,12 +43,3 @@ def getEventData(browser):
         #print(eventCopy)
         events.append(eventCopy) 
     return events
-
-
-
-
-
-
-
-
-

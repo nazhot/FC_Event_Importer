@@ -2,7 +2,7 @@ import re
 
 defaultStartTime  = "01:00"
 defaultEndTime    = "03:00"
-endingOffset      =":00-07:00"
+endingOffset      =":00-06:00"
 defaultEventHours = 2
 
 #The default event, helps show if there is an issue with scraping a particular website
@@ -24,7 +24,7 @@ def convertToEventDateTime(day, month, year, time):
     year  = str(year)
     time  = str(time).rjust(5, "0")
 
-    return f'{year}-{month}-{day}T{time}:00-07:00'
+    return f'{year}-{month}-{day}T{time}:00-06:00'
 
 #Add the specified number of hours to the given time
 #Input has to be {H?H}:{MM} format to work, if it isn't it is just returned
