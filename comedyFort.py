@@ -21,7 +21,11 @@ def getEventData():
             yearNumber += 1
         
         url     = getUrl(monthNumber, yearNumber)
-        webPage = requests.get(url)
+        try:
+            webPage = requests.get(url)
+        except requests.exceptions.RequestException as e:
+            print(f'Comedy Fort wasn\'t able to connect to {url}')
+            continue
         soup    = BeautifulSoup(webPage.text, "html.parser")
 
         for dateContainer in soup.find_all("td"): #all of the days are held within td elements

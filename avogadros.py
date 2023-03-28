@@ -86,7 +86,7 @@ def extractDateTime(string):
     else:
         startTime, endTime = extractTime(splitString[dateIndex + 1])
           
-    date = "-".join((year, monthNumber, dayNumber))
+    date = "-".join((year, monthNumber.rjust(2, "0"), dayNumber.rjust(2, "0")))
     return date, startTime, endTime
 
 def getEventData():
@@ -100,7 +100,11 @@ def getEventData():
             "location": "605 S Mason St, Fort Collins, CO 80524",
         }
 
-    webPage = requests.get(url)
+    try:
+        webPage = requests.get(url)
+    except requests.exceptions.RequestException as e:
+        print(f'Comedy Fort wasn\'t able to connect to {url}')
+        exit
     soup    = BeautifulSoup(webPage.text, "html.parser")
 
     for h4Element in soup.find_all("h4"): #all event/date elements are h4's, some extras sneak in though
@@ -127,7 +131,7 @@ def getEventData():
         date, startTime, endTime = extractDateTime(text)
 
         eventCopy                = defaultEvent.copy()
-        eventCopy["summary"]     = eventName + " " + date
+        eventCopy["summary"]     = eventName
         eventCopy["start"]       = {"dateTime": date + "T" + startTime, "timeZone": "America/Denver",}
         eventCopy["end"]         = {"dateTime": date + "T" + endTime,   "timeZone": "America/Denver",}
 

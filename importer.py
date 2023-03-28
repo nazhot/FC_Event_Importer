@@ -33,8 +33,13 @@ def uploadEvents(service, eventsList):
 
 def eventExists(service, event):
     scrubbedSummary = event["summary"].replace("&amp;", "&").replace("\'", "")
+    startDateTime   = datetime.datetime.fromisoformat(event["start"]["dateTime"])
     events = service.events().list(calendarId='primary', q=scrubbedSummary).execute()
-    return len(events["items"]) > 0
+    for existingEvent in events["items"]:
+        existingStartDateTime = datetime.datetime.fromisoformat(existingEvent["start"]["dateTime"])
+        if startDateTime == existingStartDateTime:
+            return True
+    return False
 
 def main():
     """Shows basic usage of the Google Calendar API.
