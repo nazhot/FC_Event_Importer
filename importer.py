@@ -53,9 +53,6 @@ def generateCalendarsDict(service):
     return calendarDict
 
 def main():
-    """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
-    """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -81,23 +78,22 @@ def main():
 
         options = webdriver.FirefoxOptions()
         options.add_argument("--headless")
-        browser = webdriver.Firefox(options=options)
-        print("Getting Magic Rat events")
-        magicRatEvents = magicRat.getEventData(browser)
-        print("Completed, " + str(len(magicRatEvents)) + " events found")
-        uploadEvents(service, magicRatEvents, calendarDict["Magic Rat"])
+        with webdriver.Firefox(options=options) as browser:
+            print("Getting Magic Rat events")
+            magicRatEvents = magicRat.getEventData(browser)
+            print("Completed, " + str(len(magicRatEvents)) + " events found")
+            uploadEvents(service, magicRatEvents, calendarDict["Magic Rat"])
 
-        # print("Getting Avo's events")
-        # avoEvents = avogadros.getEventData()
-        # print("Completed, " + str(len(avoEvents)) + " events found")
-        # uploadEvents(service, avoEvents)
+            # print("Getting Avo's events")
+            # avoEvents = avogadros.getEventData()
+            # print("Completed, " + str(len(avoEvents)) + " events found")
+            # uploadEvents(service, avoEvents)
 
-        # print("Getting Comedy Fort events")
-        # comedyFortEvents = comedyFort.getEventData()
-        # print(f'Completed, {len(comedyFortEvents)} events found')
-        # uploadEvents(service, comedyFortEvents)
+            # print("Getting Comedy Fort events")
+            # comedyFortEvents = comedyFort.getEventData()
+            # print(f'Completed, {len(comedyFortEvents)} events found')
+            # uploadEvents(service, comedyFortEvents)
 
-        browser.quit()
 
 
     except HttpError as error:
