@@ -53,6 +53,17 @@ def generateCalendarsDict(service):
         calendarDict[calendar["summary"]] = calendar["id"]
     return calendarDict
 
+def getCalendarId(calendarName, calendarDict, service):
+    if calendarName in calendarDict:
+        return calendarDict[calendarName]
+    
+    newCalendarObject = {
+        "summary": calendarName,
+        "timeZone": "America/Denver"}
+    print(f'Generating new sub-calendar for {calendarName}')
+    newCalendar = service.calendars().insert(body=newCalendarObject).execute()
+    return newCalendar["id"]
+
 def main():
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -83,7 +94,8 @@ def main():
             print("Getting Magic Rat events")
             magicRatEvents = magicRat.getEventData(browser)
             print("Completed, " + str(len(magicRatEvents)) + " events found")
-            uploadEvents(service, magicRatEvents, calendarDict["Magic Rat"])
+            calendar = getCalendarId("Magic Rat", calendarDict, service)
+            uploadEvents(service, magicRatEvents, calendar)
 
 
             # print("Getting Aggie Events")
