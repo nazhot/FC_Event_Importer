@@ -3,15 +3,17 @@ import requests
 import datetime
 import common
 
+name = "Comedy Fort"
+
 def getUrl(monthNumber, year):
     monthNumber = str(monthNumber)
     year        = str(year)
 
     return f'https://www.comedyfortcollins.com/calendar?month={monthNumber}&year={year}'
 
-def getEventData():
+def getEventData(_):
     events       = []     
-    defaultEvent = common.getDefaultEvent("Comedy Fort", "167 N College Ave, Fort Collins, CO 80524")
+    defaultEvent = common.getDefaultEvent(name, "167 N College Ave, Fort Collins, CO 80524")
     monthNumber  = datetime.datetime.now().month
     yearNumber   = datetime.datetime.now().year
     

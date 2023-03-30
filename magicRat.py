@@ -2,10 +2,12 @@ from bs4 import BeautifulSoup
 import common
 import datetime
 
+name = "Magic Rat"
+
 def getEventData(browser):
 
     events = []
-    defaultEvent = common.getDefaultEvent("Magic Rat", "111 Chestnut St, Fort Collins CO 80524")
+    defaultEvent = common.getDefaultEvent(name, "111 Chestnut St, Fort Collins CO 80524")
 
     url = "https://www.theelizabethcolorado.com/magicratlivemusic#live-music"
 

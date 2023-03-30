@@ -5,6 +5,7 @@ import re
 import common
 
 months      = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+name = "Avogadro's Number"
 
 def extractTime(timeString):
     timeString = timeString.strip()
@@ -78,12 +79,12 @@ def extractDateTime(string):
 
     return startDateTime, endDateTime
 
-def getEventData():
+def getEventData(_):
     url            = "https://www.avogadros.com/"
     h4Texts        = []
     foundShowStart = False 
     events         = []
-    defaultEvent   = common.getDefaultEvent("Avogadro's Number", "605 S Mason St, Fort Collins, CO 80524")
+    defaultEvent   = common.getDefaultEvent(name, "605 S Mason St, Fort Collins, CO 80524")
 
     try:
         webPage = requests.get(url)

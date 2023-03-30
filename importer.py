@@ -90,30 +90,17 @@ def main():
 
         options = webdriver.FirefoxOptions()
         options.add_argument("--headless")
+
+        venues = [magicRat, comedyFort, avogadros, aggieTheatre]
+
         with webdriver.Firefox(options=options) as browser:
-            print("Getting Magic Rat events")
-            magicRatEvents = magicRat.getEventData(browser)
-            print("Completed, " + str(len(magicRatEvents)) + " events found")
-            calendar = getCalendarId("Magic Rat", calendarDict, service)
-            uploadEvents(service, magicRatEvents, calendar)
 
-
-            # print("Getting Aggie Events")
-            # aggieEvents = aggieTheatre.getEventData()
-            # print(f'Completed, {len(aggieEvents)} events found')
-            # uploadEvents(service, aggieEvents, calendarDict["Aggie Theatre"])
-
-            # print("Getting Avo's events")
-            # avoEvents = avogadros.getEventData()
-            # print("Completed, " + str(len(avoEvents)) + " events found")
-            # uploadEvents(service, avoEvents)
-
-            # print("Getting Comedy Fort events")
-            # comedyFortEvents = comedyFort.getEventData()
-            # print(f'Completed, {len(comedyFortEvents)} events found')
-            # uploadEvents(service, comedyFortEvents)
-
-
+            for venue in venues:
+                print(f'Getting {venue.name} events')
+                events = venue.getEventData(browser)
+                print(f'Completed, {len(events)} events found')
+                calendar = getCalendarId(venue.name, calendarDict, service)
+                uploadEvents(service, events, calendar)
 
     except HttpError as error:
         print('An error occurred: %s' % error)

@@ -5,6 +5,8 @@ import re
 import common
 import time
 
+name = "Aggie Theatre"
+
 def getInfoFromEventPage(soup, className):
     element = soup.find("li", class_ = className)
     if element is None:
@@ -13,16 +15,16 @@ def getInfoFromEventPage(soup, className):
     text = element.find("span").get_text().strip()
     return text
 
-def getEventData():
-    events = []
-    url     = "https://www.z2ent.com/aggie-theatre"
+def getEventData(_):
+    events       = []
+    defaultEvent = common.getDefaultEvent(name, "204 S College Ave, Fort Collins, CO 80524")
+    url          = "https://www.z2ent.com/aggie-theatre"
     try:
         webPage = requests.get(url)
     except requests.exceptions.RequestException as e:
         print(f'Aggie\'s wasn\'t able to connect to {url}')
         exit
     soup         = BeautifulSoup(webPage.text, "html.parser")
-    defaultEvent = common.getDefaultEvent("Aggie Theatre", "204 S College Ave, Fort Collins, CO 80524")
     eventElement = soup.find("div", class_ = "eventItem")
 
     for eventElement in soup.find_all("div", class_="eventItem"):
