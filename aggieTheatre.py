@@ -5,8 +5,6 @@ import re
 import common
 import time
 
-
-
 def getInfoFromEventPage(soup, className):
     element = soup.find("li", class_ = className)
     if element is None:
@@ -15,9 +13,8 @@ def getInfoFromEventPage(soup, className):
     text = element.find("span").get_text().strip()
     return text
 
-
-
 def getEventData():
+    events = []
     url     = "https://www.z2ent.com/aggie-theatre"
     try:
         webPage = requests.get(url)
@@ -26,20 +23,17 @@ def getEventData():
         exit
     soup         = BeautifulSoup(webPage.text, "html.parser")
     defaultEvent = common.getDefaultEvent("Aggie Theatre", "204 S College Ave, Fort Collins, CO 80524")
-
     eventElement = soup.find("div", class_ = "eventItem")
+
     for eventElement in soup.find_all("div", class_="eventItem"):
         eventDateElement = eventElement.find("span", class_ = "m-date__singleDate")
         eventDate        = eventDateElement.get_text().strip()[5:]
-        try:
-            eventDate        = datetime.datetime.strptime(eventDate, "%b %d, %Y")
-        except ValueError as e:
-            eventDate    = datetime.datetime.strptime(eventDate, "%B %d, %Y")
         eventNameElement = eventElement.find("h3")
         eventName        = eventNameElement.get_text().strip()
         eventDescElement = eventElement.find("h4")
         eventLinkElement = eventElement.find("a")
         eventLink        = eventLinkElement["href"]
+
         if eventDescElement is None:
             eventDescription = defaultEvent["description"]
         else:
@@ -60,11 +54,23 @@ def getEventData():
             countTry += 1
 
         if eventStarts is None:
-            continue
+            eventStarts = common.defaultStartTime;
 
-        print(f'Name: {eventName} Desc: {eventDescription} Date: {eventDate}')
-        print(f'Url: {eventLink}')
-        print(f'Event Starts: {eventStarts} Price: {eventPrices}')
+        eventStarts   = eventStarts.rjust(5, "0")
+        startDateTime = eventDate + " " + eventStarts
+        try:
+            startDateTime = datetime.datetime.strptime(startDateTime, "%b %d, %Y %I:%M %p")
+        except ValueError as e:
+            startDateTime = datetime.datetime.strptime(startDateTime, "%B %d, %Y %I:%M %p")
+        
+        endDateTime              = startDateTime + datetime.timedelta(hours=common.defaultEventHours)
+        eventDescription         = f'{eventDescription}\n{eventLink}\n{eventPrices}'
+        eventCopy                = defaultEvent.copy()
+        eventCopy["summary"]     = eventName
+        eventCopy["description"] = eventDescription
+        eventCopy["start"]       = {"dateTime": startDateTime.isoformat() + common.endingOffset}
+        eventCopy["end"]         = {"dateTime": endDateTime.isoformat()   + common.endingOffset}
 
+        events.append(eventCopy)
 
-getEventData()
+    return events
