@@ -4,6 +4,7 @@ from __future__ import print_function
 import magicRat
 import avogadros
 import comedyFort
+import aggieTheatre
 from selenium import webdriver
 
 
@@ -83,6 +84,12 @@ def main():
             magicRatEvents = magicRat.getEventData(browser)
             print("Completed, " + str(len(magicRatEvents)) + " events found")
             uploadEvents(service, magicRatEvents, calendarDict["Magic Rat"])
+
+
+            # print("Getting Aggie Events")
+            # aggieEvents = aggieTheatre.getEventData()
+            # print(f'Completed, {len(aggieEvents)} events found')
+            # uploadEvents(service, aggieEvents, calendarDict["Aggie Theatre"])
 
             # print("Getting Avo's events")
             # avoEvents = avogadros.getEventData()

@@ -54,7 +54,7 @@ def getEventData():
             countTry += 1
 
         if eventStarts is None:
-            eventStarts = common.defaultStartTime;
+            eventStarts = common.defaultStartTime + " AM";
 
         eventStarts   = eventStarts.rjust(5, "0")
         startDateTime = eventDate + " " + eventStarts
