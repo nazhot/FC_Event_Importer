@@ -19,11 +19,10 @@ def getEventData(_):
     events       = []
     defaultEvent = common.getDefaultEvent(name, "204 S College Ave, Fort Collins, CO 80524")
     url          = "https://www.z2ent.com/aggie-theatre"
-    try:
-        webPage = requests.get(url)
-    except requests.exceptions.RequestException as e:
-        print(f'Aggie\'s wasn\'t able to connect to {url}')
-        exit
+    webPage      = common.requestsGet(url, 5)
+    if webPage is None:
+        return []
+
     soup         = BeautifulSoup(webPage.text, "html.parser")
     eventElement = soup.find("div", class_ = "eventItem")
 
@@ -43,7 +42,11 @@ def getEventData(_):
 
         countTry = 0
         while countTry < 5:
-            eventPage   = requests.get(eventLink)
+            eventPage   = common.requestsGet(eventLink, 5)
+            if eventPage is None:
+                time.sleep(3)
+                countTry += 1
+                continue
             eventSoup   = BeautifulSoup(eventPage.text, "html.parser")
             eventStarts = getInfoFromEventPage(eventSoup, "sidebar_event_starts")
             eventPrices = getInfoFromEventPage(eventSoup, "sidebar_ticket_prices")

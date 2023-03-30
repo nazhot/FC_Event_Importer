@@ -1,4 +1,5 @@
 import re
+import requests
 
 defaultStartTime  = "01:00"
 defaultEndTime    = "03:00"
@@ -76,3 +77,14 @@ def convertPMTimeWithoutMeridian(timeString):
 
     timeString += " pm"
     return convertMeridianTime(timeString)
+
+def requestsGet(url, retries):
+    for i in range(retries):
+        try:
+            webPage = requests.get(url)
+            return webPage
+        except requests.exceptions.RequestException as e:
+            print(f'Wasn\'t able to connect to {url}, try {i}')
+            continue
+    print(f'ERROR: url could not be connected to: {url}')
+    return None

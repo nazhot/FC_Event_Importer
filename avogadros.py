@@ -85,12 +85,10 @@ def getEventData(_):
     foundShowStart = False 
     events         = []
     defaultEvent   = common.getDefaultEvent(name, "605 S Mason St, Fort Collins, CO 80524")
+    webPage        = common.requestsGet(url, 5)
 
-    try:
-        webPage = requests.get(url)
-    except requests.exceptions.RequestException as e:
-        print(f'Avogadro\'s wasn\'t able to connect to {url}')
-        exit
+    if webPage is None:
+        return []
     soup    = BeautifulSoup(webPage.text, "html.parser")
 
     for h4Element in soup.find_all("h4"): #all event/date elements are h4's, some extras sneak in though
