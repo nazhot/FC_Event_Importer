@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
-import requests
 import datetime
-import re
 import common
 
 months      = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
