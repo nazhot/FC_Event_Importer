@@ -269,5 +269,41 @@
             }
             
         ]
+    },
+    {
+        "venue name": "Avogadro's Number",
+        "location": "605 S Mason St, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Avo's Open Bluegrass Jam",
+                "description": "Our famous open bluegrass jam happens every Wednesday at 7:00pm, so grab your banjos! Your mandolins! Guitars and bass! Pack up the kids and come on down.",
+                "start" : {
+                    "dateTime": "2023-04-05T19:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-05T23:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            },
+            {
+                "summary": "Avo's Open Mic Night",
+                "description": "Our open mic attracts tons of local talent, from solo acts to local bands to poets and comedians. This eclectic gathering of performers is not to be missed. Please come join in--sign up begins at 7PM. ",
+                "start" : {
+                    "dateTime": "2023-04-04T20:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-04T21:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
     }
 ]
