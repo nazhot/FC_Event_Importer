@@ -1,16 +1,15 @@
 from __future__ import print_function
 
-
 import magicRat
 import avogadros
 import comedyFort
 import aggieTheatre
 import maxline
+
 from selenium import webdriver
-
-
 import datetime
 import os.path
+import json
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -21,6 +20,21 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
+#Upload recurring events defined in recurring.json
+def uploadRecurringEvents(service, calendarDict):
+    with open("recurring.json") as f:
+        recurringEventsJSON = json.load(f)
+        for venueObject in recurringEventsJSON:
+            venueName     = venueObject["venue name"]
+            calendarId    = getCalendarId(venueName, calendarDict, service)
+            venueLocation = venueObject["location"]
+            for recurringEvent in venueObject["events"]:
+                eventObject             = recurringEvent
+                eventObject["location"] = venueLocation
+                if eventExists(service, eventObject, calendarId):
+                    continue
+                calendarEvent = service.events().insert(calendarId=calendarId, body=eventObject).execute()
+                print(f'Recurring event created: {calendarEvent["summary"]}')
 
 def uploadEvents(service, eventsList, calendarId):
     calendarEvents = []
@@ -93,6 +107,9 @@ def main():
         options.add_argument("--headless")
 
         venues = [magicRat, comedyFort, avogadros, aggieTheatre, maxline]
+
+        uploadRecurringEvents(service, calendarDict)
+        return
 
         with webdriver.Firefox(options=options) as browser:
 

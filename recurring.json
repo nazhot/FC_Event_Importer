@@ -7,18 +7,17 @@
                 "summary": "Bingo",
                 "description": "Come play Bingo with us!  We play every Monday from 6:00-7:30pm, and there's absolutely no cost to play.  We call 7 rounds, each with a chance to win delicious Maxline Brewing beer, awesome Maxline Brewing s(ch)wag, and gift certificates from local businesses.  Can't make it at 6:00pm?  No problem, you can jump in and play at any time!",
                 "start" : {
-                    "dateTime": "2023-04-03T18:00:00-06:00"
+                    "dateTime": "2023-04-03T18:00:00-06:00",
+                    "timeZone": "America/Denver"
                 },
                 "end": {
-                    "dateTime": "2023-04-03T19:30:00-06:00"
+                    "dateTime": "2023-04-03T19:30:00-06:00",
+                    "timeZone": "America/Denver"
                 },
                 "recurrence": [
                     "RRULE:FREQ=WEEKLY;COUNT=52"
                 ]
             }
         ]
-    },
-    {
-
     }
 ]
