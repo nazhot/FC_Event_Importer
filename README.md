@@ -11,6 +11,7 @@ v0.0.1
   - Magic Rat (https://www.theelizabethcolorado.com/magicratlivemusic)
   - Avogadro's Number (https://www.avogadros.com/)
   - Comedy Fort (https://www.comedyfortcollins.com/)
+  - Maxline (https://maxlinebrewing.com/live-music/)
 - Events are added to different sub-calendars for easy filtering
 - Events already in the calendar will not be re-added
   
@@ -25,7 +26,6 @@ N/A
   - Washington's (https://washingtonsfoco.com/)
   - The Lincoln Center (https://www.lctix.com/)
   - Armory (https://armoryfoco.com/)
-  - Maxline (https://maxlinebrewing.com/live-music/)
   - Bas Bleu (https://basbleu.org/)
   - Swing Station (https://www.swingstationlaporte.com/)
   - The Atrium (https://atriumfoco.com/)
