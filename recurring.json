@@ -196,5 +196,78 @@
                 ]
             }
         ]
+    },
+    {
+        "venue name": "Old Town Putt",
+        "location": "244 N College Ave Suite 112 Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "BOGO Mini Golf",
+                "description": "Buy one get one mini golf",
+                "start" : {
+                    "dateTime": "2023-04-04T12:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-04T22:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "Pour Brothers",
+        "location": "220 Linden St, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Tuesday Trivia",
+                "description": "Registration opens at 6:30pm, with play starting around 7pm. We do general trivia most of the month and spontaneous themed trivia every now and then, which will be promoted on social media . Prizes include $, free beverages, your team name on the coveted bovine trophy, and photobooth pics on the wall of champs! Kitchen open until 9pm.",
+                "start" : {
+                    "dateTime": "2023-04-04T18:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-04T20:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            },
+            {
+                "summary": "Thursday Adult Coloring",
+                "description": "6-10pm! We'll have awesome Old Town coloring books by the one and only, Emma Mannino! $2 off select drafts for those coloring!",
+                "start" : {
+                    "dateTime": "2023-04-06T18:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-06T22:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            },
+            {
+                "summary": "Sunday Board Games",
+                "description": "Bring your own, or play some of ours! $2 off select drafts for those playing!",
+                "start" : {
+                    "dateTime": "2023-04-02T10:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-02T22:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+            
+        ]
     }
 ]
