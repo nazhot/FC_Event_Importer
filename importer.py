@@ -5,6 +5,7 @@ import magicRat
 import avogadros
 import comedyFort
 import aggieTheatre
+import maxline
 from selenium import webdriver
 
 
@@ -91,7 +92,7 @@ def main():
         options = webdriver.FirefoxOptions()
         options.add_argument("--headless")
 
-        venues = [magicRat, comedyFort, avogadros, aggieTheatre]
+        venues = [magicRat, comedyFort, avogadros, aggieTheatre, maxline]
 
         with webdriver.Firefox(options=options) as browser:
 
