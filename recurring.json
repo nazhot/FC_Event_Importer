@@ -275,7 +275,7 @@
         "location": "605 S Mason St, Fort Collins, CO 80524",
         "events": [
             {
-                "summary": "Avo's Open Bluegrass Jam",
+                "summary": "Avo Open Bluegrass Jam",
                 "description": "Our famous open bluegrass jam happens every Wednesday at 7:00pm, so grab your banjos! Your mandolins! Guitars and bass! Pack up the kids and come on down.",
                 "start" : {
                     "dateTime": "2023-04-05T19:00:00-06:00",
@@ -290,7 +290,7 @@
                 ]
             },
             {
-                "summary": "Avo's Open Mic Night",
+                "summary": "Avo Open Mic Night",
                 "description": "Our open mic attracts tons of local talent, from solo acts to local bands to poets and comedians. This eclectic gathering of performers is not to be missed. Please come join in--sign up begins at 7PM. ",
                 "start" : {
                     "dateTime": "2023-04-04T20:00:00-06:00",
@@ -298,6 +298,99 @@
                 },
                 "end": {
                     "dateTime": "2023-04-04T21:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "The Crown Pub",
+        "location": "134 S College Ave, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Live Jazz",
+                "description": "https://crownpub.net/live-jazz-on-sundays/",
+                "start" : {
+                    "dateTime": "2023-04-02T19:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-02T22:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "Scrumpy's Hard Cider",
+        "location": "215 N College Ave, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Trivia Night",
+                "description": "Trivia night at Scrumpy's",
+                "start" : {
+                    "dateTime": "2023-04-05T19:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-05T21:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            },
+            {
+                "summary": "Salsa Night",
+                "description": "https://www.facebook.com/profile.php?id=100057867781070 \nLessons begin at 7:30pm, and social dancing continues from 8pm-10pm",
+                "start" : {
+                    "dateTime": "2023-04-06T19:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-06T22:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "Stodgy Brewing",
+        "location": "1802 Laporte Ave, Fort Collins, CO 80521",
+        "events": [
+            {
+                "summary": "Board Game Night",
+                "description": "Every Thursday night starting November 10th are Board Game Nights! Bring a few friends and your own board game or borrow one of ours! We collected a bunch of our favorite games for you to check out at the bar.",
+                "start" : {
+                    "dateTime": "2023-04-06T16:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-06T20:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            },
+            {
+                "summary": "Local Music Tuesday",
+                "description": "https://www.facebook.com/events/1204902037116991/1204902047116990/?active_tab=about \nJoin us for local original live music every Tuesday. Check out our facebook event for details on who's playing each week.",
+                "start" : {
+                    "dateTime": "2023-04-04T18:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-04T20:00:00-06:00",
                     "timeZone": "America/Denver"
                 },
                 "recurrence": [
