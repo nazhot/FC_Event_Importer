@@ -17,6 +17,126 @@
                 "recurrence": [
                     "RRULE:FREQ=WEEKLY;COUNT=52"
                 ]
+            },
+            {
+                "summary": "Trivia Tuesday",
+                "description": "Your Tuesday evenings just got a lot better, and brainier, and beerier!  Hosted by Maxline's very own beertender and trivia guru, Michael Scott, it's a great way to spend your Tuesday evening.  Come enjoy six rounds of trivia covering a range of subjects, with prizes for both overall winners and some individual rounds.  The fun begins at 6:00pm, and it's free to play!  Teams must have no more than six people to be eligible for prizes.",
+                "start" : {
+                    "dateTime": "2023-04-04T18:00:00-06:00",
+                    "timeZone": "America/Denver"    
+                },
+                "end": {
+                    "dateTime": "2023-04-04T19:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "Illegal Pete's",
+        "location": "320 Walnut St, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Trivia Night",
+                "description": "Bring a team (up to 6), or join one at the bar. It's free to play (but order something, cheapo!). Expect 60-ish questions over 2 hours. Win free pints and other prizes",
+                "start" : {
+                    "dateTime": "2023-04-05T19:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-05T20:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "Half Fast Subs",
+        "location": "649 S College Ave Unit B, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Trivia Night",
+                "description": "Bring a team (up to 6), or join one at the bar. It's free to play (but order something, cheapo!). Expect 60-ish questions over 2 hours. Win free pints and other prizes",
+                "start" : {
+                    "dateTime": "2023-04-06T19:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-06T21:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "Gilded Goat Brewing Company",
+        "location": "132 W Mountain Ave, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Trivia Night",
+                "description": "Bring a team (up to 6), or join one at the bar. It's free to play (but order something, cheapo!). Expect 60-ish questions over 2 hours. Win free pints and other prizes",
+                "start" : {
+                    "dateTime": "2023-04-06T19:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-06T20:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "Trailhead Tavern",
+        "location": "148 W Mountain Ave, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Trivia Night",
+                "description": "Bring a team (up to 6), or join one at the bar. It's free to play (but order something, cheapo!). Expect 60-ish questions over 2 hours. Win free pints and other prizes",
+                "start" : {
+                    "dateTime": "2023-04-03T19:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-03T21:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
+            }
+        ]
+    },
+    {
+        "venue name": "Beau Jo's",
+        "location": "205 N College Ave, Fort Collins, CO 80524",
+        "events": [
+            {
+                "summary": "Trivia Night",
+                "description": "Bring a team (up to 6), or join one at the bar. It's free to play (but order something, cheapo!). Expect 60-ish questions over 2 hours. Win free pints and other prizes",
+                "start" : {
+                    "dateTime": "2023-04-04T19:00:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "end": {
+                    "dateTime": "2023-04-04T20:30:00-06:00",
+                    "timeZone": "America/Denver"
+                },
+                "recurrence": [
+                    "RRULE:FREQ=WEEKLY;COUNT=52"
+                ]
             }
         ]
     }
