@@ -9,7 +9,8 @@ def getEventData(browser):
     events = []
     defaultEvent = common.getDefaultEvent(name, "111 Chestnut St, Fort Collins CO 80524")
 
-    url = "https://www.theelizabethcolorado.com/magicratlivemusic#live-music"
+    #url = "https://www.theelizabethcolorado.com/magicratlivemusic#live-music"
+    url = "https://www.theelizabethcolorado.com/magicratlivemusic/calendar-page"
 
     browser.get(url)
     html = browser.page_source

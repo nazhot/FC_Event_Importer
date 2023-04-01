@@ -108,8 +108,8 @@ def main():
 
         venues = [magicRat, comedyFort, avogadros, aggieTheatre, maxline]
 
-        uploadRecurringEvents(service, calendarDict)
-        return
+        #uploadRecurringEvents(service, calendarDict)
+        #return
 
         with webdriver.Firefox(options=options) as browser:
 
