@@ -86,7 +86,7 @@ def eventVerifier(event):
 
     startTime = event["start"]["dateTime"]
     try:
-        startTime = datetime.datetime().fromisoformat(startTime)
+        startTime = datetime.datetime.fromisoformat(startTime)
     except ValueError as e:
         print("dateTime within start not formatted correctly")
         for error in errors:
@@ -98,15 +98,23 @@ def eventVerifier(event):
         errors.append("No dateTime within end, adding default eventTime to start")
         endTime                  = startTime + datetime.timedelta(hours=common.defaultEventHours)
         event["end"]["dateTime"] = endTime.isoformat()
+        for error in errors:
+            print(error)
+        print(event)
         return event
     
     endTime = event["end"]["dateTime"]
     try:
-        datetime.datetime().fromisoformat(endTime)
+        datetime.datetime.fromisoformat(endTime)
     except ValueError as e:
         print("dateTime within end not formatted correctly, adding default eventTime to start")
         endTime                  = startTime + datetime.timedelta(hours=common.defaultEventHours)
         event["end"]["dateTime"] = endTime.isoformat()
+
+    for error in errors:
+        print(error)
+    if len(errors) > 0:
+        print(event)
 
     return event
 
