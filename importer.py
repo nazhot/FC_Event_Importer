@@ -5,6 +5,7 @@ import avogadros
 import comedyFort
 import aggieTheatre
 import maxline
+import common
 
 from selenium import webdriver
 import datetime
@@ -46,6 +47,36 @@ def uploadEvents(service, eventsList, calendarId):
         print("Event created: " + event["summary"])
         calendarEvents.append(calendarEvent)
     return calendarEvents
+
+def eventVerifier(event):
+    keysToCheck = {
+        "summary": {
+            "error": "No Summary",
+            "value": "Default Title"
+        },
+        "description": {
+            "error": "No Description",
+            "value": "Default Description"
+        },
+        "start":{
+            "error": "No Start Time"
+        },
+        "end": {
+            "error" : "No End Time"
+        }
+    }
+    errors = []
+    for key in keysToCheck:
+        if key in event:
+            continue
+
+        if "value" not in keysToCheck[key]:
+            print(f'{key} not found in event: {event}')
+            return None
+        
+        event[key] = keysToCheck[key]["value"]
+        errors.append(keysToCheck[key]["error"])
+        
 
 def eventExists(service, event, calendarId):
     scrubbedSummary = event["summary"].replace("&amp;", "&").replace("\'", "")
