@@ -77,6 +77,38 @@ def eventVerifier(event):
         event[key] = keysToCheck[key]["value"]
         errors.append(keysToCheck[key]["error"])
         
+    if "dateTime" not in event["start"]:
+        print("No dateTime within start")
+        for error in errors:
+            print(error)
+        print(event)
+        return None
+
+    startTime = event["start"]["dateTime"]
+    try:
+        startTime = datetime.datetime().fromisoformat(startTime)
+    except ValueError as e:
+        print("dateTime within start not formatted correctly")
+        for error in errors:
+            print(error)
+        print(event)
+        return None
+
+    if "dateTime" not in event["end"]:
+        errors.append("No dateTime within end, adding default eventTime to start")
+        endTime                  = startTime + datetime.timedelta(hours=common.defaultEventHours)
+        event["end"]["dateTime"] = endTime.isoformat()
+        return event
+    
+    endTime = event["end"]["dateTime"]
+    try:
+        datetime.datetime().fromisoformat(endTime)
+    except ValueError as e:
+        print("dateTime within end not formatted correctly, adding default eventTime to start")
+        endTime                  = startTime + datetime.timedelta(hours=common.defaultEventHours)
+        event["end"]["dateTime"] = endTime.isoformat()
+
+    return event
 
 def eventExists(service, event, calendarId):
     scrubbedSummary = event["summary"].replace("&amp;", "&").replace("\'", "")
