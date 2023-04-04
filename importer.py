@@ -32,6 +32,9 @@ def uploadRecurringEvents(service, calendarDict):
             for recurringEvent in venueObject["events"]:
                 eventObject             = recurringEvent
                 eventObject["location"] = venueLocation
+                eventObject             = eventVerifier(eventObject)
+                if eventObject is None:
+                    continue
                 if eventExists(service, eventObject, calendarId):
                     continue
                 calendarEvent = service.events().insert(calendarId=calendarId, body=eventObject).execute()
@@ -40,6 +43,9 @@ def uploadRecurringEvents(service, calendarDict):
 def uploadEvents(service, eventsList, calendarId):
     calendarEvents = []
     for event in eventsList:
+        event = eventVerifier(event)
+        if event is None:
+            continue
         if eventExists(service, event, calendarId):
             continue
         calendarEvent = service.events().insert(calendarId=calendarId, body=event).execute()
