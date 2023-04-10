@@ -12,6 +12,7 @@
 - [🔜 Hopeful Features](#-hopeful-features)
 - [🪚 Built With](#-built-with)
 - [🔨 Build Instructions](#-build-instructions)
+- [🔄 Adding Recurring Events](#-adding-recurring-events)
 
 # Fort Collins Event Importer
 A web scraper to gather upcoming events happening around Fort Collins and add them to a Google Calendar.
@@ -67,8 +68,27 @@ After forking and cloning, navigate to the repository in your command line, ente
 ```
 pip install -r requirements.txt
 ```
+If you do not have a copy of your Google Calendar API credentials, visit [developers.google.com](https://developers.google.com/workspace/guides/create-credentials) and follow the instructions.
+Add credentials.json to the project folder.
 Run the following script in your command line:
 ```
 python importer.py
 ```
 You will be prompted to authorize the app to connect to your Google Calendar
+
+## 🔄 Adding Recurring Events
+The repository comes with a bundle of recurring events already, within [recurring.json](/recurring.json). Most of these events are Trivia and Bingo Nights. The file is an array of JSON objects, each pertaining to a different venue. If the venue is already present, skip to the next section. Otherwise, you will need to add a new JSON object to the array. Each JSON object requires 3 key-value pairs:
+- `venue name`: _string_, the name of the venue, which will also be the name of the sub-calendar its events go on
+- `location`:   _string_, the location of the event, copied from a Google Maps entry
+- `events`:     _array_,  event JSON object(s) with the requirements listed in the next section
+
+
+To add an event to an existing venue, locate the venue's `events` array. Add a JSON object element with the following requirements:
+- `summary`:     _string_,      title of the event
+- `description`: _string_,      description of the event
+- `start`:      _JSON object_, start information of the event with the following requirements
+  - `dateTime`: _string_, the date/time that the event starts, formatted according to [RFC3339](https://www.rfc-editor.org/rfc/rfc3339)
+  - `timeZone`: _string_, the time zone the event takes place in, formatted as an IANA Time Zone Database name, e.g. America/Denver for these events
+- `end`:      _JSON object_, end information of the event with the following requirements
+  - `dateTime`: _string_, the date/time that the event ends, formatted according to [RFC3339](https://www.rfc-editor.org/rfc/rfc3339)
+  - `timeZone`: _string_, the time zone the event takes place in, formatted as an IANA Time Zone Database name, e.g. America/Denver for these events
