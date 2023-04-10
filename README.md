@@ -1,10 +1,25 @@
+<p align="center">
+  <a href="https://noahzydel.com">
+    <img alt="Noah Logo" height="128" src="./.github/resources/NoahLogo.svg">
+    <h1 align="center">Noah Zydel</h1>
+  </a>
+</p>
+
+---
+
+- [📖 Overview](#-overview)
+- [⭐️ Current Version](#-current-version)
+- [🔜 Hopeful Features](#-hopeful-features)
+- [🪚 Built With](#-built-with)
+- [🔨 Build Instructions](#-build-instructions)
+
 # Fort Collins Event Importer
 A web scraper to gather upcoming events happening around Fort Collins and add them to a Google Calendar.
 
-## Overview
+## 📖 Overview
 A python program, used to consolidate a bunch of popular locations in Fort Collins and their events into one Google Calendar. The program uses Beautiful Soup web scraping in order to go through websites for Aggie Theatre, Magic Rat, Avogadro's Number, Comedy Fort (more incoming), and gather events happening in order to import into Google Calendar using their RESTful API. 
 
-## Current Version
+## ⭐️ Current Version
 v0.0.1
 - **Venues Gathered**
   - Aggie Theatre (https://www.z2ent.com/aggie-theatre)
@@ -18,7 +33,7 @@ v0.0.1
 ## Previous Versions
 N/A
 
-## Hopeful Features
+## 🔜 Hopeful Features
 - If the sub-calendars are not already in the calendar, create them at run time
 - Automate the adding of Gryphon Games, Wolverine Farm, and any future calendars I find that are already Google Calendars that can be imported with a link
 - **Venues to Add**
@@ -36,13 +51,13 @@ N/A
   - Chippers (https://www.chipperslanes.com/locations/830northfortcollins/)
   - The Mishawake (https://www.themishawaka.com/)
   
-## Built With
+## 🪚 Built With
 - python
 - BeautifulSoup
 - selenium
 - Google Calendar RESTful API
 
-## Build Instructions
+## 🔨 Build Instructions
 After forking and cloning, navigate to the repository in your command line, enter a python virtual environment, install the python libraries:
 ```
 pip install -r requirements.txt
