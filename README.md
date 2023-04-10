@@ -92,3 +92,7 @@ To add an event to an existing venue, locate the venue's `events` array. Add a J
 - `end`:      _JSON object_, end information of the event with the following requirements
   - `dateTime`: _string_, the date/time that the event ends, formatted according to [RFC3339](https://www.rfc-editor.org/rfc/rfc3339)
   - `timeZone`: _string_, the time zone the event takes place in, formatted as an IANA Time Zone Database name, e.g. America/Denver for these events
+
+Avogadro's Number events within the given file:
+
+<img src="./.github/resources/recurring-example.png">
