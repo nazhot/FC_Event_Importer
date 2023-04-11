@@ -16,8 +16,9 @@
 
 # Fort Collins Event Importer
 A web scraper to gather upcoming events happening around Fort Collins and add them to a Google Calendar.
-
+<p align="center">
 <img src="./.github/resources/full-calendar-example.png">
+</p>
 
 ## 📖 Overview
 A python program used to consolidate a bunch of popular locations in Fort Collins and their events into one Google Calendar. This allows for one to tell at a glance what events are happening today, next week, next month, all within one place, and without having to navigate to and search through multiple websites. The program uses [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) web scraping in order to go through websites for Aggie Theatre, Magic Rat, Avogadro's Number, Comedy Fort (more incoming), and gather events happening in order to import into Google Calendar using their RESTful API. Events are also split into different sub-calendars, differentiated by venue, making filtering easy.
