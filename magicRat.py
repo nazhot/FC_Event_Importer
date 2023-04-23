@@ -40,7 +40,11 @@ def getEventData(browser):
         bandContainer = eventContainer.find("h3")
         timeContainer = eventContainer.find("time")
         startTime     = timeContainer["datetime"].replace(" ", "T") + common.endingOffset
-        endTime       = datetime.datetime.fromisoformat(startTime) + datetime.timedelta(hours=common.defaultEventHours)
+        try:
+            endTime       = datetime.datetime.fromisoformat(startTime) + datetime.timedelta(hours=common.defaultEventHours)
+        except ValueError as e:
+            print(f'Issue with time, {startTime}')
+            continue
         endTime       = endTime.isoformat()
         band          = bandContainer.decode_contents()
         eventCopy     = defaultEvent.copy()

@@ -54,9 +54,8 @@ def extractDateTime(string):
             break
 
     if not breakout:
-        print(f'No month found in {string}, using default, Avogadro\'s Number')
-        return year + "-1-1", defaultStartTime, defaultEndTime #default if no month is found
-
+        print(f'No month found in {string}, giving up on it, Avogadro\'s Number')
+        return None, None
     monthNumber = str(monthIndex + 1)
 
     if " " not in dateString:
@@ -96,7 +95,7 @@ def getEventData(_):
             continue
             
         if not foundShowStart: #events start after the h4 element with text "Shows"
-            foundShowStart = h4Text == "Shows"
+            foundShowStart = "Show" in h4Text
             continue
 
         h4Texts.append(h4Text)
@@ -111,6 +110,8 @@ def getEventData(_):
             continue
 
         startDateTime, endDateTime = extractDateTime(text)
+        if startDateTime is None:
+            continue
 
         eventCopy                = defaultEvent.copy()
         eventCopy["summary"]     = eventName
