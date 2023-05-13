@@ -14,6 +14,8 @@
 - [🔨 Build Instructions](#-build-instructions)
 - [🔄 Adding Recurring Events](#-adding-recurring-events)
 
+**This code is intended for personal use. Use of the output of this code for anything other than your own, personal Google Calendar without permission from the businesses is done at your own risk**
+
 # Fort Collins Event Importer
 A web scraper to gather upcoming events happening around Fort Collins and add them to a Google Calendar.
 <p align="center">
